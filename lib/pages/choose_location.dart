@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'dart:convert' as convert;
+import 'package:http/http.dart';
 
 class ChooseLocation extends StatefulWidget {
   const ChooseLocation({Key? key}) : super(key: key);
@@ -10,15 +12,11 @@ class ChooseLocation extends StatefulWidget {
 class _ChooseLocationState extends State<ChooseLocation> {
 
   void getData() async {
-    //simulte networi request for a username
-    String username = await Future.delayed(Duration(seconds: 3),(){
-      return ('yoshi');
-    });
-
-    String bio = await Future.delayed(Duration(seconds: 2),(){
-      return 'vege,musician & egg collector';
-    });
-    print('$username - $bio');
+    final url = 'https://jsonplaceholder.typicode.com/todos/1';
+    
+    Response response = await get(Uri.parse(url));
+    Map data = convert.jsonDecode(response.body);
+    print(data);
   }
 
   int counter = 0;
